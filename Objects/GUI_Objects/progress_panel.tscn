@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://btbee54q8tvcu"]
+
+[ext_resource type="Script" path="res://Scripts/ProgressPanelLogic.gd" id="1_6h6no"]
+
+[node name="ProgressPanel" type="Panel"]
+custom_minimum_size = Vector2(200, 70)
+script = ExtResource("1_6h6no")
+Title = "Привет"
+TitleColor = Color(0.886275, 0.870588, 0.141176, 1)
+
+[node name="Container" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Container"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.886275, 0.870588, 0.141176, 1)
+text = "Привет"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Progress" type="ProgressBar" parent="Container"]
+layout_mode = 2
+value = 50.0

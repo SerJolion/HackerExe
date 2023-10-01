@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Shader" path="res://Shaders/GraphEdge.gdshader" id="1_1f5rd"]
+[ext_resource type="Script" path="res://Scripts/ObjectLogic/GraphEdgeLogic.gd" id="1_fnik3"]
+[ext_resource type="Texture2D" uid="uid://ccy0lcxxftk1a" path="res://Textures/EdgeTexture.png" id="2_p4bqv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vg8xi"]
+shader = ExtResource("1_1f5rd")
+shader_parameter/speed = 1.0
+shader_parameter/color = Color(0.882353, 0.137255, 0.494118, 1)
+
+[node name="GraphEdge" type="Node2D"]
+z_index = -1
+z_as_relative = false
+script = ExtResource("1_fnik3")
+speed = 3.0
+
+[node name="Line2D" type="Line2D" parent="."]
+texture_filter = 2
+texture_repeat = 2
+material = SubResource("ShaderMaterial_vg8xi")
+points = PackedVector2Array(0, 0, 41, 20)
+width = 15.0
+texture = ExtResource("2_p4bqv")
+texture_mode = 1
+begin_cap_mode = 1
+end_cap_mode = 1

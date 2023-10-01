@@ -1,0 +1,129 @@
+[gd_scene load_steps=6 format=3 uid="uid://dfqbtl2fmxhxc"]
+
+[ext_resource type="Theme" uid="uid://bih8b27ydr430" path="res://Themes/MainTheme.theme" id="1_wrlii"]
+[ext_resource type="StyleBox" uid="uid://bnc301bpckwco" path="res://Themes/CloseButton/NormalCloseButton.stylebox" id="2_13fy2"]
+[ext_resource type="Script" path="res://Scripts/GUILogic/SettingsPanelLogic.gd" id="2_x1svc"]
+[ext_resource type="StyleBox" uid="uid://b6h23ag8aa15w" path="res://Themes/CloseButton/HoverCloseButton.stylebox" id="3_dtbb4"]
+[ext_resource type="StyleBox" uid="uid://c6bjbtuntmb3x" path="res://Themes/CloseButton/PressedCloseButton.stylebox" id="4_2ungb"]
+
+[node name="SettingsPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 1
+theme = ExtResource("1_wrlii")
+script = ExtResource("2_x1svc")
+
+[node name="SettingsPanel" type="Panel" parent="."]
+custom_minimum_size = Vector2(500, 700)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/Title"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+text = "Настройки"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="SettingsPanel/MarginContainer/VBoxContainer/Title"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.235294, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_13fy2")
+theme_override_styles/hover = ExtResource("3_dtbb4")
+theme_override_styles/pressed = ExtResource("4_2ungb")
+text = " X "
+
+[node name="HSeparator" type="HSeparator" parent="SettingsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SettingsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="MainContainer" type="VBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PlayTimeConteiner" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/ScrollContainer/MainContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/ScrollContainer/MainContainer/PlayTimeConteiner"]
+layout_mode = 2
+text = "Время игры:"
+
+[node name="SpinBox" type="SpinBox" parent="SettingsPanel/MarginContainer/VBoxContainer/ScrollContainer/MainContainer/PlayTimeConteiner"]
+layout_mode = 2
+max_value = 1000.0
+alignment = 1
+suffix = "сек."
+select_all_on_focus = true
+
+[node name="SoundLevelContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/ScrollContainer/MainContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/ScrollContainer/MainContainer/SoundLevelContainer"]
+layout_mode = 2
+text = "Громкость звуков: "
+
+[node name="HSlider" type="HSlider" parent="SettingsPanel/MarginContainer/VBoxContainer/ScrollContainer/MainContainer/SoundLevelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+focus_mode = 0
+
+[node name="MusicLevelContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/ScrollContainer/MainContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/ScrollContainer/MainContainer/MusicLevelContainer"]
+layout_mode = 2
+text = "Громкость музыки: "
+
+[node name="HSlider" type="HSlider" parent="SettingsPanel/MarginContainer/VBoxContainer/ScrollContainer/MainContainer/MusicLevelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+focus_mode = 0
+
+[node name="ApplayButton" type="Button" parent="SettingsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+text = "Применить"
+
+[connection signal="pressed" from="SettingsPanel/MarginContainer/VBoxContainer/Title/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="SettingsPanel/MarginContainer/VBoxContainer/ApplayButton" to="." method="_on_applay_button_pressed"]

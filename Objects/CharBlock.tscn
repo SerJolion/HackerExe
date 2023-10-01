@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=3 uid="uid://bol2n5812k121"]
+
+[ext_resource type="Script" path="res://Scripts/ObjectLogic/CharBlockLogic.gd" id="1_a1pjv"]
+[ext_resource type="AudioStream" uid="uid://cnffrukkoq383" path="res://Sounds/BlockClick.mp3" id="2_5mvx5"]
+
+[sub_resource type="Gradient" id="Gradient_7o61i"]
+resource_local_to_scene = true
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.278443, 0.754491)
+colors = PackedColorArray(0.0901961, 0.462745, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_43lli"]
+size = Vector2(60, 60)
+
+[node name="CharBlock" type="Node2D"]
+script = ExtResource("1_a1pjv")
+Text = "Bfjkjkjk"
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(30, 30)
+color = Color(0, 1, 0, 1)
+
+[node name="Text" type="Label" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -13.0
+offset_right = 30.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(30, 13)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Bfjkjkjk"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_5mvx5")
+volume_db = -9.98
+pitch_scale = 0.7
+
+[node name="Line2D" type="Line2D" parent="."]
+visible = false
+position = Vector2(26, 0)
+points = PackedVector2Array(4, 0, 30, 0)
+width = 30.0
+default_color = Color(0, 1, 0, 1)
+gradient = SubResource("Gradient_7o61i")
+
+[node name="Area2D" type="Area2D" parent="." groups=["BlockAreas"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_43lli")
+
+[node name="ChildPosition" type="Marker2D" parent="."]
+position = Vector2(80, 0)
+
+[connection signal="item_rect_changed" from="Background/Text" to="." method="_on_text_item_rect_changed"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

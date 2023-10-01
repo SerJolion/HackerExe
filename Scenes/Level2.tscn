@@ -1,0 +1,189 @@
+[gd_scene load_steps=8 format=3 uid="uid://dauv5bttks2ap"]
+
+[ext_resource type="Script" path="res://Scripts/SceneLogic/Level2Logic.gd" id="1_n3moa"]
+[ext_resource type="Theme" uid="uid://bih8b27ydr430" path="res://Themes/MainTheme.theme" id="2_74s8j"]
+[ext_resource type="AudioStream" uid="uid://87ry5dfw3lcn" path="res://Sounds/Level2Music.mp3" id="2_vd61l"]
+[ext_resource type="PackedScene" uid="uid://b56b4nxbv1o47" path="res://Objects/GUI_Objects/MassageBox.tscn" id="3_uxrsd"]
+[ext_resource type="PackedScene" uid="uid://clbjc6ax4s5jq" path="res://Objects/GUI_Objects/TimerPanel.tscn" id="4_bb8ax"]
+[ext_resource type="PackedScene" uid="uid://baoa00d2dhob6" path="res://Objects/TuringLine.tscn" id="5_iirso"]
+
+[sub_resource type="CodeHighlighter" id="CodeHighlighter_re2aa"]
+number_color = Color(1, 1, 0, 1)
+symbol_color = Color(0, 1, 0, 1)
+keyword_colors = {
+"left": Color(1, 1, 0, 1),
+"move_to": Color(1, 1, 0, 1),
+"move_to_end": Color(1, 1, 0, 1),
+"move_to_start": Color(1, 1, 0, 1),
+"put": Color(1, 1, 0, 1),
+"right": Color(1, 1, 0, 1),
+"take": Color(1, 1, 0, 1)
+}
+
+[node name="Level2" type="Node2D"]
+script = ExtResource("1_n3moa")
+ExecutionSpeed = 0.1
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_vd61l")
+autoplay = true
+
+[node name="GameTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="CodeRunningTimer" type="Timer" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_74s8j")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control"]
+use_parent_material = true
+custom_minimum_size = Vector2(250, 768)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Этап 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimerPanel" parent="CanvasLayer/Control/Panel/VBoxContainer" instance=ExtResource("4_bb8ax")]
+layout_mode = 2
+
+[node name="CodeHintPanel" type="Panel" parent="CanvasLayer/Control/Panel/VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Panel/VBoxContainer/CodeHintPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Panel/VBoxContainer/CodeHintPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CanvasLayer/Control/Panel/VBoxContainer/CodeHintPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+text = "Команды исполнителя"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/Panel/VBoxContainer/CodeHintPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[color=yellow][u]move_to 3[/u][/color] - перемещает каретку в позицию 3
+[color=yellow][u]left[/u][/color] - перемещает каретку в позитицию левее текущей
+[color=yellow][u]right[/u][/color] - перемещает каретку в позицию правее текущей
+[color=yellow][u]move_to_start[/u][/color] - перемещает каретку в начальную позицию
+[color=yellow][u]move_to_end[/u][/color] - перемещает каретку в конечную позицию
+[color=yellow][u]take[/u][/color] - берет данные из текущей ячейки
+[color=yellow][u]put[/u][/color] - записывает данные в текущую ячейку"
+fit_content = true
+scroll_active = false
+shortcut_keys_enabled = false
+deselect_on_focus_loss_enabled = false
+
+[node name="CodePanel" type="Panel" parent="CanvasLayer/Control"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -453.0
+offset_right = -253.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/CodePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextEdit" type="TextEdit" parent="CanvasLayer/Control/CodePanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+context_menu_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+syntax_highlighter = SubResource("CodeHighlighter_re2aa")
+caret_blink = true
+caret_multiple = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/CodePanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="StartCodebutton" type="Button" parent="CanvasLayer/Control/CodePanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Запуск кода"
+
+[node name="StepCodeButton" type="Button" parent="CanvasLayer/Control/CodePanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Шаг кода"
+
+[node name="ResetCodeButton" type="Button" parent="CanvasLayer/Control/CodePanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Перезапустить код"
+
+[node name="LineIndex" type="Label" parent="CanvasLayer/Control/CodePanel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "Текущая строка: 0"
+
+[node name="OutputLine" type="Label" parent="CanvasLayer/Control/CodePanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+
+[node name="MassageBox" parent="CanvasLayer/Control" instance=ExtResource("3_uxrsd")]
+visible = false
+layout_mode = 1
+
+[node name="TuringLine" parent="." instance=ExtResource("5_iirso")]
+position = Vector2(83, 84)
+StartElements = Array[String](["000", "001", "010", "011", "100", "101", "110", " ", "111"])
+
+[connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
+[connection signal="timeout" from="CodeRunningTimer" to="." method="_on_code_running_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/Control/CodePanel/VBoxContainer/HBoxContainer/StartCodebutton" to="." method="_on_start_codebutton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/CodePanel/VBoxContainer/HBoxContainer/StepCodeButton" to="." method="_on_step_code_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/CodePanel/VBoxContainer/HBoxContainer/ResetCodeButton" to="." method="_on_reset_code_button_pressed"]
+[connection signal="ActionError" from="TuringLine" to="." method="_on_turing_line_action_error"]

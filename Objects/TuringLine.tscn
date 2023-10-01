@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://baoa00d2dhob6"]
+
+[ext_resource type="Script" path="res://Scripts/TuringLineLogic.gd" id="1_d1yb1"]
+[ext_resource type="PackedScene" uid="uid://bivaojeoa0upj" path="res://Objects/TuringCairette.tscn" id="3_oqjwl"]
+
+[node name="TuringLine" type="Node2D"]
+script = ExtResource("1_d1yb1")
+StartElements = Array[String](["000", "001", "010", "011", "100", "101", "110", "111", " "])
+TuringElementScenePath = "res://Objects/TuringElement.tscn"
+
+[node name="Line" type="Node2D" parent="."]
+
+[node name="TuringCairette" parent="." instance=ExtResource("3_oqjwl")]
+scale = Vector2(1.5, 1.5)

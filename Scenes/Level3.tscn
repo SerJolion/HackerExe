@@ -1,0 +1,150 @@
+[gd_scene load_steps=8 format=3 uid="uid://3jc45sooy7gx"]
+
+[ext_resource type="Script" path="res://Scripts/SceneLogic/Level3Logic.gd" id="1_5u8bl"]
+[ext_resource type="Theme" uid="uid://bih8b27ydr430" path="res://Themes/MainTheme.theme" id="1_wa7am"]
+[ext_resource type="AudioStream" uid="uid://dgtm6ufcp4awf" path="res://Sounds/Level3Music.mp3" id="2_lv2uq"]
+[ext_resource type="PackedScene" uid="uid://clbjc6ax4s5jq" path="res://Objects/GUI_Objects/TimerPanel.tscn" id="3_y6aue"]
+[ext_resource type="PackedScene" uid="uid://b56b4nxbv1o47" path="res://Objects/GUI_Objects/MassageBox.tscn" id="4_mqgxa"]
+[ext_resource type="PackedScene" uid="uid://btbee54q8tvcu" path="res://Objects/GUI_Objects/progress_panel.tscn" id="5_4x3xe"]
+[ext_resource type="PackedScene" uid="uid://bol2n5812k121" path="res://Objects/CharBlock.tscn" id="7_ndclu"]
+
+[node name="Level3" type="Node2D"]
+script = ExtResource("1_5u8bl")
+Code = "9563821"
+CodeChars = PackedStringArray("@", "#", "&")
+WinMessage = "[color=green]Вот это я понимаю настоящий профессионал! Взлом прошел без суча и задоринки! Мне даже не стыдно, что ты пользовался моей программой! [wave amp=50 freq=10][color=yellow]Mr.S[/color][/wave] гордится тобой. Когда нажмешь кнопку [color=yellow]ПРОДОЛЖИТЬ[/color] то на экране появится необходимый тебе пароль. "
+FailMessage = "[color=green]Так близко к завершению! И такой провал! Что-то тебе сегодня не везет, однако тебе очень повезло, что используешь программы от [wave amp=50 freq=10][color=yellow]Mr.S[/color][/wave], поэтому у тебя есть еще [color=yellow]один шанс[/color]! Постарайся его не упустить! Правда взлом придется начать с начала."
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_lv2uq")
+volume_db = -10.0
+autoplay = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("1_wa7am")
+
+[node name="Container" type="VBoxContainer" parent="CanvasLayer/Control/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Panel/Container"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Этап 3
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimerPanel" parent="CanvasLayer/Control/Panel/Container" instance=ExtResource("3_y6aue")]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control/Panel/Container"]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Panel/Container/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="CanvasLayer/Control/Panel/Container/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Кодировочная таблица"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/Panel/Container/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+columns = 2
+
+[node name="ProgressPanel" parent="CanvasLayer/Control/Panel/Container" instance=ExtResource("5_4x3xe")]
+layout_mode = 2
+Title = "Прогресс расшифровки"
+TitleColor = Color(1, 1, 0, 1)
+
+[node name="CodeMAssagePanel" type="Panel" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -457.0
+offset_top = 2.0
+offset_right = 173.0
+offset_bottom = 97.0
+grow_horizontal = 2
+theme = ExtResource("1_wa7am")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/CodeMAssagePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="CanvasLayer/Control/CodeMAssagePanel/VBoxContainer"]
+layout_mode = 2
+text = "Закодированное сообщение"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/CodeMAssagePanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "sfsfsfsfsfsfsfsfsfsfsfsfsfs"
+horizontal_alignment = 1
+
+[node name="MassageBox" parent="CanvasLayer/Control" instance=ExtResource("4_mqgxa")]
+visible = false
+layout_mode = 1
+TitleText = "Mr.S"
+
+[node name="FailTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="StartCharBlock" parent="World" instance=ExtResource("7_ndclu")]
+position = Vector2(163, 175)
+Text = "Нач."
+CanHaveParent = false
+BlockColor = Color(1, 1, 0.0235294, 1)
+
+[node name="EndCharBlock" parent="World" instance=ExtResource("7_ndclu")]
+position = Vector2(913, 168)
+Text = "Кон."
+CanHaveChild = false
+BlockColor = Color(1, 0.992157, 0, 1)
+
+[connection signal="CloseButtonClick" from="CanvasLayer/Control/MassageBox" to="." method="_on_massage_box_close_button_click"]
+[connection signal="ContinueButtonClick" from="CanvasLayer/Control/MassageBox" to="." method="_on_massage_box_continue_button_click"]
+[connection signal="timeout" from="FailTimer" to="." method="_on_fail_timer_timeout"]

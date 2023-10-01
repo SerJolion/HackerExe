@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=3 uid="uid://c6w8wmxl5v2c6"]
+
+[ext_resource type="Script" path="res://Scripts/SceneLogic/FinalSceneLogic.gd" id="1_ks8p2"]
+[ext_resource type="Theme" uid="uid://bih8b27ydr430" path="res://Themes/MainTheme.theme" id="1_mpcfa"]
+[ext_resource type="AudioStream" uid="uid://bo4fuw217yobl" path="res://Sounds/EndSceneMusic.mp3" id="2_gn5qf"]
+[ext_resource type="AudioStream" uid="uid://bjdqrdf338x80" path="res://Sounds/Voice2.mp3" id="3_4tle1"]
+[ext_resource type="Shader" path="res://Shaders/MainMenu.gdshader" id="5_qd1yu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0720x"]
+shader = ExtResource("5_qd1yu")
+shader_parameter/background_color = Color(0, 0, 0, 1)
+shader_parameter/line_color = Color(0, 0.329412, 0, 1)
+shader_parameter/line_freq = 9.56
+shader_parameter/height = 0.6
+shader_parameter/speed = 0.5
+shader_parameter/scale = Vector2(2, 16)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_is0ct"]
+
+[node name="FinalScene" type="Node2D"]
+script = ExtResource("1_ks8p2")
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_gn5qf")
+volume_db = -20.0
+autoplay = true
+
+[node name="VoicePlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_4tle1")
+volume_db = 2.592
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_mpcfa")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
+material = SubResource("ShaderMaterial_0720x")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_is0ct")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Взлом завершен"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "31415926"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="CanvasLayer/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Нажмите кнопку Enter для завершения программы"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="finished" from="VoicePlayer" to="." method="_on_voice_player_finished"]

@@ -1,0 +1,185 @@
+[gd_scene load_steps=8 format=3 uid="uid://c3scemkov6frr"]
+
+[ext_resource type="Script" path="res://Scripts/SceneLogic/Level1Logic.gd" id="1_w7wkb"]
+[ext_resource type="AudioStream" uid="uid://4jjcwvxo101g" path="res://Sounds/Level1Music.mp3" id="2_06vpd"]
+[ext_resource type="Theme" uid="uid://bih8b27ydr430" path="res://Themes/MainTheme.theme" id="2_shoa1"]
+[ext_resource type="PackedScene" uid="uid://b56b4nxbv1o47" path="res://Objects/GUI_Objects/MassageBox.tscn" id="3_pifes"]
+[ext_resource type="PackedScene" uid="uid://clbjc6ax4s5jq" path="res://Objects/GUI_Objects/TimerPanel.tscn" id="4_uprol"]
+[ext_resource type="PackedScene" uid="uid://btbee54q8tvcu" path="res://Objects/GUI_Objects/progress_panel.tscn" id="5_vws7h"]
+[ext_resource type="Script" path="res://Scripts/ObjectLogic/GraphLogic.gd" id="6_1cocj"]
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_w7wkb")
+WinMessage = "[color=green]Это снова  [wave amp=50 freq=10][color=yellow]Mr.S[/color][/wave]! Я вижу, что ты выполнил 1 этап взлома – отлично! Половина работы уже сделана. Программа получила нужные данные, однако они находятся в зашифрованном виде и понять ты их не сможешь. НО! Это не беда ведь с данной утилитой ты сможешь превратить это месиво из символов в осмысленный код.Пора переходить ко второму этапу!
+[center][color=yellow]II этап взлома[/color][/center] 
+Данные у программы есть, однако, как было сказано выше, они зашифрованы и в таком виде представляют из себя просто набор символов! Но я думаю ты легко справишься с разшифровкой, ведь программа уже собрала для тебя кодировочную таблицу с помощью которой ты вмиг декодируешь данные. Все, что тебе нужно это сверяться с таблицей и [color=yellow]собирать нужные символы в цепочку[/color]. Самое главное помни, что в начале цепочке должен стоять блок [color=yellow]НАЧ[/color]. а в конце блок [color=yellow]КОН.[/color] 
+"
+FailMessage = "[color=green]Вижу со взломом проблемы! Первый этап не выполнен и данных нет. Тебе очень повезло, что ты пользуешься программой от  [wave amp=50 freq=10][color=yellow]Mr.S[/color][/wave]  и она не позволяет себя обнаружить в системе даже, когда взлом не удается. А это значит у тебя есть еще шанс на успешный взлом, однако придется начинать все с начала. И надеюсь на второй раз у тебя получится![/color]
+"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_06vpd")
+volume_db = -19.905
+autoplay = true
+
+[node name="FailTimer" type="Timer" parent="."]
+
+[node name="UpdateResultTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("2_shoa1")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Этап 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimerPanel2" parent="CanvasLayer/Control/Panel/VBoxContainer" instance=ExtResource("4_uprol")]
+layout_mode = 2
+
+[node name="MatrixPanel" type="Panel" parent="CanvasLayer/Control/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Panel/VBoxContainer/MatrixPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Panel/VBoxContainer/MatrixPanel/VBoxContainer"]
+layout_mode = 2
+text = "Взвешенная матрица"
+horizontal_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/Panel/VBoxContainer/MatrixPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "[center][table=7]
+[cell]   [/cell][cell] A [/cell][cell] B [/cell][cell] C [/cell][cell] D [/cell][cell] E [/cell][cell] F [/cell]
+[cell] A [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell]
+[cell] B [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell]
+[cell] C [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell]
+[cell] D [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell]
+[cell] E [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell]
+[cell] F [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell][cell] 0 [/cell]
+[/table][/center]"
+deselect_on_focus_loss_enabled = false
+
+[node name="DataPanel" type="Panel" parent="CanvasLayer/Control/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Panel/VBoxContainer/DataPanel"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -81.5
+offset_right = 81.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Panel/VBoxContainer/DataPanel/VBoxContainer"]
+layout_mode = 2
+text = "Соединение"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/Panel/VBoxContainer/DataPanel/VBoxContainer"]
+layout_mode = 2
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="CanvasLayer/Control/Panel/VBoxContainer/DataPanel/VBoxContainer"]
+layout_mode = 2
+vertical_alignment = 1
+
+[node name="ProgressPanel" parent="CanvasLayer/Control/Panel/VBoxContainer" instance=ExtResource("5_vws7h")]
+visible = false
+layout_mode = 2
+Title = "Прогресс"
+TitleColor = Color(1, 1, 0, 1)
+
+[node name="ResultPanel" type="Panel" parent="CanvasLayer/Control/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Panel/VBoxContainer/ResultPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/Panel/VBoxContainer/ResultPanel/VBoxContainer"]
+layout_mode = 2
+text = "Необходимые данные"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Control/Panel/VBoxContainer/ResultPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Panel/VBoxContainer/ResultPanel/VBoxContainer"]
+layout_mode = 2
+text = "dfgdfgdfgdfgdgd"
+autowrap_mode = 1
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="MassageBox" parent="CanvasLayer" instance=ExtResource("3_pifes")]
+visible = false
+TitleText = "Mr.S"
+Message = "[color=green]Это снова  [wave amp=50 freq=10][color=yellow]Mr.S[/color][/wave]! Я вижу, что ты выполнил 1 этап взлома – отлично! Половина работы уже сделана. Программа получила нужные данные, однако они находятся в зашифрованном виде и понять ты их не сможешь. НО! Это не беда ведь с данной утилитой ты сможешь превратить это месиво из символов в осмысленный код.
+
+[center][color=yellow]II этап взлома[/color][/center]
+
+Как я уже сказал выше, полученные данные зашифрованы, однако программа уже подобрала [color=yellow]кодировочную таблицу[/color], в которой записаны соответствие кодовых слов и их значений. Тебе осталось только подобрать нужную последовательность символов. Время на выполнение данного задания будет предостаточно, однако не стоит тормозить, ведь и оно может кончиться! [/color]
+"
+
+[node name="Graph" type="Node2D" parent="."]
+script = ExtResource("6_1cocj")
+VertexScenePath = "res://Objects/GraphVertex.tscn"
+
+[connection signal="timeout" from="FailTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="UpdateResultTimer" to="." method="_on_update_result_timer_timeout"]
+[connection signal="CloseButtonClick" from="CanvasLayer/MassageBox" to="." method="_on_massage_box_close_button_click"]
+[connection signal="ContinueButtonClick" from="CanvasLayer/MassageBox" to="." method="_on_massage_box_continue_button_click"]
